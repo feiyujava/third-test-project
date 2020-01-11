@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.tedu.store.mapper.CartMapper">
+	<!-- 
+		void updateCart(@Param("id") Integer id,
+		@Param("num") Integer num);
+	 -->
+	<update id="updateCart">
+		{call updateNum(#{id},#{num})}
+	</update>
+	
+	<!-- 
+		void deleteById(Integer id);
+	 -->
+	 <delete id="deleteById">
+	 	{call deleteCart(#{id})}
+	 </delete>
+	 
+	 
+	<!-- 
+		void deleteBatchById(Integer[] ids);
+	 -->
+	
+	<delete id="deleteBatchById" parameterType="java.lang.Integer">
+		delete from 
+			t_cart
+		where
+			id in 
+			
+			<foreach collection="array" item="id" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+			
+	</delete>
+	
+	<!-- 
+	List<CartVo> selectCartByUid(Integer uid);
+	 -->
+	
+	<select id="selectCartByUid" resultType="cn.tedu.store.vo.CartVo">
+	select
+			t_cart.id as id,
+			uid,
+			goods_id as goodsId,
+			image,
+			title,
+			t_cart.num as num,
+			price
+		from 
+			t_cart,t_goods
+		where
+			t_cart.goods_id = t_goods.id
+		and
+			t_cart.uid = #{uid}
+	</select>
+	
+	<!-- 
+	void insertCart(Cart cart);
+	 -->
+	 <insert id="insertCart" parameterType="cn.tedu.store.bean.Cart">
+	 	insert into t_cart(
+			goods_id,uid,num,
+			created_user,created_time,
+			modified_user,modified_time
+		)values(
+			#{goodsId},#{uid},#{num},
+			#{createdUser},#{createdTime},
+			#{modifiedUser},#{modifiedTime}
+		)
+	 </insert>
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

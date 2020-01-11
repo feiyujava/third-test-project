@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.tedu.store.mapper.AccountMapper">
+	
+	<!-- //1000账号的余额
+	Integer select1(); -->
+	<select id="select1" resultType="java.lang.Integer">
+		select 
+			money
+		from
+			account
+		where
+			id=1000
+	</select>
+	
+	
+	<!-- //1001账号的余额
+	Integer select2(); -->
+	<select id="select2" resultType="java.lang.Integer">
+		select 
+			money
+		from
+			account
+		where
+			id=1001
+	</select>
+	
+	
+	<!-- //修改id的余额为money(1000)
+	void update1(String id,Integer money); -->
+	<update id="update1">
+		update 
+			account
+		set 
+			money = #{money}
+		where
+			id=#{id}
+	</update>
+	
+	<!-- //修改id的余额为money(1001)
+	void update2(String id,Integer money); -->
+	
+	<update id="update2">
+		update 
+			account
+		set 
+			money = #{money}
+		where
+			id=#{id}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
